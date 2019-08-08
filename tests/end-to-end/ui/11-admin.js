@@ -1,13 +1,8 @@
-/* eslint-env mocha */
-/* eslint-disable func-names, prefer-arrow-callback */
-
 import sideNav from '../../pageobjects/side-nav.page';
 import flexTab from '../../pageobjects/flex-tab.page';
 import admin from '../../pageobjects/administration.page';
-
-//test data imports
-import {checkIfUserIsAdmin} from '../../data/checks';
-import {adminUsername, adminEmail, adminPassword} from '../../data/user.js';
+import { checkIfUserIsAdmin } from '../../data/checks';
+import { adminUsername, adminEmail, adminPassword } from '../../data/user.js';
 
 describe('[Administration]', () => {
 	before(() => {
@@ -34,10 +29,10 @@ describe('[Administration]', () => {
 		});
 
 		describe('info:', () => {
-			before(() =>{
+			before(() => {
 				admin.infoLink.waitForVisible(5000);
 				admin.infoLink.click();
-				admin.infoRocketChatTable.waitForVisible(5000);
+				admin.infoRocketChatTable.waitForVisible(10000);
 			});
 			it('the first title should be Rocket.Chat', () => {
 				admin.infoRocketChatTableTitle.getText().should.equal('Rocket.Chat');
@@ -147,7 +142,7 @@ describe('[Administration]', () => {
 				let checkbox = 1;
 				before(() => {
 					admin.roomsFilter.setValue('');
-					//add value triggers a key event that changes search±±±±±±±±±
+					// add value triggers a key event that changes search±±±±±±±±±
 					admin.roomsFilter.addValue(' ');
 					admin.roomsGeneralChannel.waitForVisible(5000);
 				});
@@ -212,7 +207,7 @@ describe('[Administration]', () => {
 
 
 			it('it should show rocket.cat', () => {
-			//it cant find the user if there is too many users
+			// it cant find the user if there is too many users
 				admin.usersRocketCat.isVisible().should.be.true;
 			});
 
@@ -347,7 +342,7 @@ describe('[Administration]', () => {
 		});
 
 		describe('[Roles]', () => {
-			before(() =>{
+			before(() => {
 				admin.permissionsLink.waitForVisible(5000);
 				admin.permissionsLink.click();
 				admin.rolesPermissionGrid.waitForVisible(5000);
@@ -522,6 +517,7 @@ describe('[Administration]', () => {
 				});
 
 				it('it should show open first channel field', () => {
+					admin.generalOpenFirstChannel.waitForVisible(5000);
 					admin.generalOpenFirstChannel.isVisible().should.be.true;
 				});
 
@@ -876,6 +872,7 @@ describe('[Administration]', () => {
 				});
 
 				it('it should show the enter key behavior field', () => {
+					browser.scroll(0, 500);
 					admin.accountsSendOnEnter.click();
 					admin.accountsSendOnEnter.isVisible().should.be.true;
 				});
@@ -884,6 +881,7 @@ describe('[Administration]', () => {
 				});
 
 				it('it should show the messagebox view mode field', () => {
+					admin.accountsMessageViewMode.moveToObject();
 					admin.accountsMessageViewMode.click();
 					admin.accountsMessageViewMode.isVisible().should.be.true;
 				});
